@@ -15,19 +15,24 @@ export default function Summoner() {
     queryFn: () => roit.searchSummoner(summonerName),
   });
 
+  console.log(summonerInfo);
+
   return (
-    <div>
+    <section>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error...</p>}
       {summonerInfo && (
-        <p>
-          닉네임: {summonerName}
-          <br />
-          id: {summonerInfo.id}
-          name: {summonerInfo.name}
-          level: {summonerInfo.summonerLevel}
-        </p>
+        <div>
+          <div>
+            <img
+              src={`https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${summonerInfo.profileIconId}.jpg`}
+              alt="profile icon"
+            />
+            <p>레벨: {summonerInfo.summonerLevel}</p>
+          </div>
+          <h2>{summonerInfo.name}</h2>
+        </div>
       )}
-    </div>
+    </section>
   );
 }
