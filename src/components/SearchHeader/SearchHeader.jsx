@@ -10,7 +10,7 @@ export default function SearchHeader() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/summoner");
+    navigate(`/summoner/${text}`);
   };
 
   return (
