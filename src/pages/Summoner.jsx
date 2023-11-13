@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRoitApi } from "../context/RoitApiContext";
 import { useParams } from "react-router-dom";
+import MatchList from "../components/MatchList/MatchList";
 
 export default function Summoner() {
+  const [ uuid, setUuid ] = useState('');
+  const [ lists, setLists ] = useState([]);
   const { roit } = useRoitApi();
   const { summonerName } = useParams();
   const {
@@ -15,8 +18,18 @@ export default function Summoner() {
     queryFn: () => roit.searchSummoner(summonerName),
   });
 
-  console.log(summonerInfo);
+  const {
+    data: matchs
+  } = useQuery({
+    queryKey: ['matchs', uuid],
+    queryFn: () => roit.matchs(uuid)
+  })
 
+  useEffect(() => {
+    setUuid(summonerInfo ? summonerInfo.puuid : '');
+    
+  }, [summonerInfo]);
+  console.log(matchs);
   return (
     <section>
       {isLoading && <p>Loading...</p>}
@@ -31,6 +44,7 @@ export default function Summoner() {
             <p>레벨: {summonerInfo.summonerLevel}</p>
           </div>
           <h2>{summonerInfo.name}</h2>
+          <MatchList matchs={() => matchs.map(matchId => roit.matchsResult(matchId))} />
         </div>
       )}
     </section>
