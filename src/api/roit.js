@@ -18,11 +18,10 @@ export default class Roit {
   async searchSummoner(summonerName) {
     return this.krClient
       .get(`summoner/v4/summoners/by-name/${summonerName}`)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+      .then((response) => response.data);
   }
   
-  async matchs(puuid) {
+  async matchIds(puuid) {
     return this.asiaClient
       .get(`match/v5/matches/by-puuid/${puuid}/ids`, {
         params: {
@@ -30,14 +29,12 @@ export default class Roit {
           count: 10,
         }
       })
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+      .then((response) => response.data);
   }
 
-  async matchsResult(matchId) {
+  async matchResult(matchId) {
     return this.asiaClient
       .get(`match/v5/matches/${matchId}`)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+      .then((response) => response.data);
   }
 }

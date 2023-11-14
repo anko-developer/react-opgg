@@ -10,11 +10,11 @@ function App() {
   return (
     <>
       <Header />
-      <QueryClientProvider client={queryClient}>
-        <RoitApiProvider>
-          <Outlet />
-        </RoitApiProvider>
-      </QueryClientProvider>
+      <RoitApiProvider>
+        <QueryClientProvider client={queryClient}>
+            <Outlet />
+        </QueryClientProvider>
+      </RoitApiProvider>
     </>
   );
 }

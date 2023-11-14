@@ -1,9 +1,20 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useRoitApi } from "../../context/RoitApiContext";
+import MatchItem from "../MatchItem/MatchItem";
 
-export default function MatchList({matchs}) {
-  console.log('test', matchs);
+export default function MatchList({puuid}) {
+  const { roit } = useRoitApi();
+
+  const {
+    data: matchIds
+  } = useQuery({
+    queryKey: ['matchs', puuid],
+    queryFn: () => roit.matchIds(puuid)
+  });
+
   return <div>
-    {matchs}
+    {matchIds && matchIds.map((matchId, index) => <MatchItem key={index} matchId={matchId} />)}
   </div>
     
 }

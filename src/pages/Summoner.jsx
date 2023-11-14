@@ -18,18 +18,18 @@ export default function Summoner() {
     queryFn: () => roit.searchSummoner(summonerName),
   });
 
-  const {
-    data: matchs
-  } = useQuery({
-    queryKey: ['matchs', uuid],
-    queryFn: () => roit.matchs(uuid)
-  })
+  // const {
+  //   data: matchs
+  // } = useQuery({
+  //   queryKey: ['matchs', uuid],
+  //   queryFn: () => roit.matchs(uuid)
+  // })
 
-  useEffect(() => {
-    setUuid(summonerInfo ? summonerInfo.puuid : '');
+  // useEffect(() => {
+  //   setUuid(summonerInfo ? summonerInfo.puuid : '');
     
-  }, [summonerInfo]);
-  console.log(matchs);
+  // }, [summonerInfo]);
+  // console.log(matchs);
   return (
     <section>
       {isLoading && <p>Loading...</p>}
@@ -44,7 +44,7 @@ export default function Summoner() {
             <p>레벨: {summonerInfo.summonerLevel}</p>
           </div>
           <h2>{summonerInfo.name}</h2>
-          <MatchList matchs={() => matchs.map(matchId => roit.matchsResult(matchId))} />
+          <MatchList puuid={summonerInfo.puuid} />
         </div>
       )}
     </section>
